@@ -23,6 +23,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'ip'], function(){
 
 });
 
+Route::controller('welcome', 'WelcomeController');
+
+Route::get("about", ["as" => "about", "uses" => "PagesController@about"]);
+
+
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');

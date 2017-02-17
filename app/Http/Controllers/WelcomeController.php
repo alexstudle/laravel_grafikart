@@ -1,4 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
+
+use \Input;
 
 class WelcomeController extends Controller {
 
@@ -23,6 +27,10 @@ class WelcomeController extends Controller {
 		$this->middleware('guest');
 	}
 
+	public function getTest(){
+
+    }
+
 	/**
 	 * Show the application welcome screen to the user.
 	 *
@@ -30,7 +38,12 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
+	    //dd(Input::get('q'));
 		return view('welcome');
 	}
+
+	public function getIndex(){
+	    return 'Salut les gens !';
+    }
 
 }
