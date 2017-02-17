@@ -11,15 +11,15 @@
 |
 */
 
-Route::get("salut/{name}-{id}", ['as' => 'salut', function($name, $id){
-    return "Lien: " . route("salut", ["name" => $name, "id" => $id]);
-}])->where("name", '[a-z0-9\-]+')->where("id", '[0-9]+');
+Route::get("salut", ['middleware' => 'ip', function(){
+    return "Salut";
+}]);
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'ip'], function(){
 
-    Route::get("salut", function(){
-        return "Salut";
-    });
+    Route::get("salut/{name}-{id}", ['as' => 'salut', function($name, $id){
+        return "Lien: " . route("salut", ["name" => $name, "id" => $id]);
+    }])->where("name", '[a-z0-9\-]+')->where("id", '[0-9]+');
 
 });
 
