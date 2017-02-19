@@ -28,9 +28,17 @@ Route::controller('welcome', 'WelcomeController');
 Route::get("about", ["as" => "about", "uses" => "PagesController@about"]);
 
 
+
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
+
+Route::get('r/{link}', ['as' => 'link.show', 'uses' => 'LinksController@show'])->where('link', '[0-9]+');
+Route::resource('link', 'LinksController', ['only' => ['create', 'store']]);
+/*  ------ This is now handled by 'resource' with a Rest URL Structure ! ------
+Route::get('link/create', 'LinksController@create');
+Route::post('link/create', 'LinksController@store');
+*/
 
 
 Route::controllers([
