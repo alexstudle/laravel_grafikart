@@ -143,7 +143,8 @@ return [
 		'App\Providers\BusServiceProvider',
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
-		'App\Providers\RouteServiceProvider',
+        'App\Providers\RouteServiceProvider',
+        'App\Providers\CacheServiceProvider',
 
 	],
 
@@ -191,7 +192,8 @@ return [
 		'Storage'   => 'Illuminate\Support\Facades\Storage',
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
-		'View'      => 'Illuminate\Support\Facades\View',
+        'View'      => 'Illuminate\Support\Facades\View',
+        'Cache2'      => 'App\CacheFacade',
 
 	],
 

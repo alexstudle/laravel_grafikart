@@ -29,6 +29,13 @@ Route::get("about", ["as" => "about", "uses" => "PagesController@about"]);
 
 
 
+
+Route::get('cache', function(){
+    dd(Cache2::get('MaKey'));
+});
+
+
+
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
