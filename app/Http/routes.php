@@ -47,6 +47,8 @@ Route::get('link/create', 'LinksController@create');
 Route::post('link/create', 'LinksController@store');
 */
 
+Route::resource('news', 'PostsController');
+
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
