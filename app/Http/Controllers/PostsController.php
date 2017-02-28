@@ -15,7 +15,7 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::get();
+		$posts = Post::published()->searchByTitle("article")->get();
 		return view('posts.index', compact('posts'));
 	}
 
@@ -48,7 +48,8 @@ class PostsController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$post = Post::published()->where('id', $id)->firstOrFail();
+		return $post;
 	}
 
 	/**
