@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model {
 
-	protected $fillable = ['title', 'slug', 'content', 'online_available', 'category_id'];
+	protected $fillable = ['title', 'slug', 'content', 'online_available', 'category_id', 'tags_list'];
 
 	public function category() {
 	    return $this->belongsTo('App\Category');
@@ -14,6 +14,17 @@ class Post extends Model {
     public function tags () {
 	    return $this->belongsToMany('App\Tag');
     }
+
+    //region tags_list getter and setter
+    public function getTagsListAttribute () {
+        if($this->id){
+            return $this->tags->lists('id');
+        }
+    }
+    public function setTagsListAttribute ($value) {
+	    $this->tags()->sync($value);
+    }
+    //endregion
 
 	public function scopePublished ($query) {
 	    return $query->where("online_available", true)->whereRaw("created_at < NOW()");

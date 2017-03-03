@@ -21,6 +21,10 @@
     {!! Form::select('category_id', $categories, null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
+    {!! Form::label('tags_list[]', 'Tags') !!}
+    {!! Form::select('tags_list[]', App\Tag::lists('name', 'id'), null, ['class' => 'form-control', 'multiple' => true]) !!}
+</div>
+<div class="form-group">
     {!! Form::label('content', 'Contenu') !!}
     {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
 </div>
