@@ -5,10 +5,14 @@ use Illuminate\Support\Str;
 
 class Post extends Model {
 
-	protected $fillable = ['title', 'slug', 'content', 'online_available'];
+	protected $fillable = ['title', 'slug', 'content', 'online_available', 'category_id'];
 
 	public function category() {
-	    $this->belongsTo('App\Category');
+	    return $this->belongsTo('App\Category');
+    }
+
+    public function tags () {
+	    return $this->belongsToMany('App\Tag');
     }
 
 	public function scopePublished ($query) {
@@ -16,7 +20,7 @@ class Post extends Model {
     }
 
     public function scopeSearchBytitle ($query, $search) {
-	    return $query->where('title', 'LIKe', '%' . $search . '%');
+	    return $query->where('title', 'LIKE', '%' . $search . '%');
     }
 
 

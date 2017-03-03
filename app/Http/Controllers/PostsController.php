@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +16,8 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::published()->searchByTitle("article")->get();
+		//$posts = Post::published()->searchByTitle("article")->get();
+        $posts = Post::with('category')->get();
 		return view('posts.index', compact('posts'));
 	}
 
@@ -26,7 +28,9 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		return view('posts.create');
+	    $post = new Post();
+        $categories = Category::lists('name', 'id');
+		return view('posts.create', compact('post', 'categories'));
 	}
 
 	/**
@@ -61,7 +65,8 @@ class PostsController extends Controller {
 	public function edit($id)
 	{
 		$post = Post::findOrFail($id);
-		return view('posts.edit', compact('post'));
+		$categories = Category::lists('name', 'id');
+		return view('posts.edit', compact('post', 'categories'));
 	}
 
 	/**
