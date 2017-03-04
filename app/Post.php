@@ -22,7 +22,11 @@ class Post extends Model {
         }
     }
     public function setTagsListAttribute ($value) {
-	    $this->tags()->sync($value);
+	    if($this->id){
+            $this->tags()->sync($value);
+        } else {
+            $this->tags()->sync($value, false);
+        }
     }
     //endregion
 

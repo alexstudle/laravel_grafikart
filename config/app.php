@@ -146,6 +146,7 @@ return [
 		'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
         'App\Providers\CacheServiceProvider',
+        'App\Providers\ValidatorServiceProvider',
 
         'Barryvdh\Debugbar\ServiceProvider::class',
 	],

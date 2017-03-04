@@ -2,6 +2,8 @@
 
 @section('content')
 
+    <pre>{{ var_dump(Session::all()) }}</pre>
+
     <a href="{{ route('news.create') }}" class="btn btn-primary" style="float:right;">+ Ajouter</a>
     @foreach($posts as $post)
         <h1>{{ $post->title }}</h1>
