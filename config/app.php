@@ -147,8 +147,6 @@ return [
         'App\Providers\RouteServiceProvider',
         'App\Providers\CacheServiceProvider',
         'App\Providers\ValidatorServiceProvider',
-
-        'Barryvdh\Debugbar\ServiceProvider::class',
 	],
 
 	/*
@@ -198,7 +196,6 @@ return [
         'View'      => 'Illuminate\Support\Facades\View',
         'Form'      => 'Illuminate\Html\FormFacade',
         'Cache2'      => 'App\CacheFacade',
-        'Debugbar' => 'Barryvdh\Debugbar\Facade::class',
 
 	],
 
