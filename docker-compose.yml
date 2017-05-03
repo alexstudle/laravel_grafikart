@@ -1,0 +1,17 @@
+web:
+    image: eboraas/laravel
+    volumes:
+        - ".:/var/www/html"
+    tty: true
+    links:
+        - db
+    ports:
+        - "80:80"
+db:
+    image: mysql:5.7
+    volumes:
+        - "./db:/var/www/lib/mysql"
+    hostname: db
+    environment:
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: laravel_grafikart
