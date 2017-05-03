@@ -15,7 +15,7 @@ Route::get("salut", ['middleware' => 'ip', function(){
     return "Salut";
 }]);
 
-Route::group(['prefix' => 'admin', 'middleware' => 'ip'], function(){
+Route::group(['prefix' => 'test', 'middleware' => 'ip'], function(){
 
     Route::get("salut/{name}-{id}", ['as' => 'salut', function($name, $id){
         return "Lien: " . route("salut", ["name" => $name, "id" => $id]);
@@ -27,6 +27,9 @@ Route::controller('welcome', 'WelcomeController');
 
 Route::get("about", ["as" => "about", "uses" => "PagesController@about"]);
 
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
+    Route::resource('posts', 'PostsController');
+});
 
 
 

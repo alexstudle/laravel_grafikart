@@ -44,6 +44,9 @@
     <div class="starter-template" style="padding-top: 40px;">
         <div class="row">
             <div class="col-sm-8">
+                @include('flash')
+                @include('errors')
+
                 @yield('content')
             </div>
             <div class="col-sm-4">

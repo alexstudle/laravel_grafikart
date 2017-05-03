@@ -1,10 +1,17 @@
 <?php namespace App\Http\Controllers;
 
+use App\Category;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Post;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\EditPostRequest;
+use Illuminate\Support\Facades\Session;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PostsController extends Controller {
 
@@ -15,7 +22,16 @@ class PostsController extends Controller {
 	 */
 	public function index()
 	{
-		$posts = Post::get();
+		//$posts = Post::published()->searchByTitle("article")->get();
+
+        //User::create(['name' => 'test', 'email' => 'test@test.fr', 'password' => Hash::make('0000')]);
+        Auth::attempt(['email' => 'test@test.fr', 'password' => '0000']);
+        Auth::logout();
+
+        Session::put('clef', 'valeur');
+        Session::put('tableau.first', 'premier');
+
+        $posts = Post::with('category')->get();
 		return view('posts.index', compact('posts'));
 	}
 
@@ -26,7 +42,9 @@ class PostsController extends Controller {
 	 */
 	public function create()
 	{
-		return view('posts.create');
+	    $post = new Post();
+        $categories = Category::lists('name', 'id');
+		return view('posts.create', compact('post', 'categories'));
 	}
 
 	/**
@@ -37,6 +55,7 @@ class PostsController extends Controller {
 	public function store(Request $req)
 	{
 		Post::create($req->all());
+        Session::flash('success', 'Article sauvegardé');
 		return redirect(route('news.index'));
 	}
 
@@ -48,7 +67,8 @@ class PostsController extends Controller {
 	 */
 	public function show($id)
 	{
-		//
+		$post = Post::published()->where('id', $id)->firstOrFail();
+		return $post;
 	}
 
 	/**
@@ -60,7 +80,8 @@ class PostsController extends Controller {
 	public function edit($id)
 	{
 		$post = Post::findOrFail($id);
-		return view('posts.edit', compact('post'));
+		$categories = Category::lists('name', 'id');
+		return view('posts.edit', compact('post', 'categories'));
 	}
 
 	/**
@@ -69,10 +90,29 @@ class PostsController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id, Request $req)
+	public function update($id, EditPostRequest $req)
 	{
+        /* Validator manuel !
+        $post = Post::findOrFail($id);
+        $validator = Validator::make($req->all(), [
+           'title' => 'required|min:5',
+           'content' => 'required|min:10'
+        ]);
+        if($validator->fails()){
+            return redirect(route('news.edit', $id))->withErrors($validator->errors());
+        } else {
+            $post->update($req->all());
+            return redirect(route('news.index'));
+        }*/
+
+        /* Validation automatic on rules
+        $this->validate($req, Post::$rules);
+        */
+
+        /* Goes even simplier with personal EditPostRequest ! */
         $post = Post::findOrFail($id);
         $post->update($req->all());
+        Session::flash('success', 'Article sauvegardé');
         return redirect(route('news.index'));
 	}
 
